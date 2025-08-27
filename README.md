@@ -32,15 +32,11 @@ GitHub – Version control & hosting
 
 ```
 
-FYP\_TrainReservation/
-├── index.html        # Homepage (login/registration page)
-├── trains.html       # View available trains
-├── booking.html      # Book tickets
-├── history.html      # Booking history
-├── cancel.html       # Cancel reservations
-├── style.css         # Main stylesheet
-├── script.js         # JavaScript logic
-└── README.md         # Documentation
+FYP_TrainReservation/
+├── index.html # Main file containing all sections (login, booking, history, etc.)
+├── style.css # Main stylesheet
+├── script.js # JavaScript logic for navigation & booking
+└── README.md # Documentation
 
 ````
 
@@ -70,8 +66,8 @@ Since this is **frontend only**, you don’t need XAMPP or a backend.
 
 🎯 Learning Objectives
 
-Practice building a **frontend reservation system** using only HTML, CSS, and JS.
-Implement **form validation**, **dynamic DOM updates**, and **UI navigation**.
+Practice building a frontend reservation system using only HTML, CSS, and JS.
+Implement form validation, dynamic DOM updates, and UI navigation.
 Understand how such a system would connect to a backend/database in the future.
 
 ---
