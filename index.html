@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pakistan Railways – Online Ticket Reservation</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <div class="logo">PR</div>
+                <div>
+                    <div>Pakistan Railways</div>
+                    <div class="muted" style="margin-top:-4px;font-size:12px">Online Ticket Reservation</div>
+                </div>
+            </div>
+            <nav class="menu" id="mainMenu">
+                <button data-nav="home" class="active">Home</button>
+                <button data-nav="search">Search Trains</button>
+                <button data-nav="trains">Trains</button>
+                <button data-nav="bookings">My Bookings</button>
+            </nav>
+            <div class="auth" id="authBox">
+                <button class="btn btn-outline" data-nav="signin">Sign in</button>
+                <button class="btn btn-primary" data-nav="signup">Create account</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- HOME -->
+        <section id="view-home">
+            <div class="hero">
+                <div class="hero-card">
+                    <span class="pill">Fast • Secure • Local</span>
+                    <h1>Book Pakistan Railways tickets online</h1>
+                    <p class="muted">Find schedules, pick seats, and pay using popular methods (JazzCash, Easypaisa,
+                        cards). This is a fully client‑side demo that stores data in your browser.</p>
+                    <form id="homeSearchForm" class="mt-16">
+                        <div class="grid-3">
+                            <div class="field">
+                                <label>From</label>
+                                <select id="homeFrom"></select>
+                            </div>
+                            <div class="field">
+                                <label>To</label>
+                                <select id="homeTo"></select>
+                            </div>
+                            <div class="field">
+                                <label>Date</label>
+                                <input type="date" id="homeDate" required />
+                            </div>
+                        </div>
+                        <div class="grid-2 mt-8">
+                            <div class="field">
+                                <label>Class</label>
+                                <select id="homeClass">
+                                    <option>Economy</option>
+                                    <option>Business</option>
+                                    <option>AC Sleeper</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Passengers</label>
+                                <input type="number" id="homePassengers" min="1" max="6" value="1" />
+                            </div>
+                        </div>
+                        <div class="right mt-8"><button class="btn btn-primary" type="submit">Search Trains</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <div class="badge">Live schedules</div>
+                        <p>Browse a curated list of major intercity trains with timings and operating days.</p>
+                    </div>
+                    <div class="card">
+                        <div class="badge">Seat selection</div>
+                        <p>Pick your preferred seats from the coach map. Seats are held per date/class.</p>
+                    </div>
+                    <div class="card">
+                        <div class="badge">Secure payments</div>
+                        <p>Simulated payments support JazzCash, Easypaisa, and bank cards for demo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGN IN -->
+        <section id="view-signin" class="hidden">
+            <div class="card" style="max-width:560px;margin:18px auto;">
+                <h2 style="margin-top:0">Sign in</h2>
+                <form id="signinForm" class="grid-2">
+                    <div class="field"><label>Email</label><input type="email" id="signinEmail" required /></div>
+                    <div class="field"><label>Password</label><input type="password" id="signinPass" required /></div>
+                    <div class="right" style="grid-column:1/-1"><button class="btn btn-primary" type="submit">Sign
+                            in</button></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- SIGN UP -->
+        <section id="view-signup" class="hidden">
+            <div class="card" style="max-width:760px;margin:18px auto;">
+                <h2 style="margin-top:0">Create account</h2>
+                <form id="signupForm" class="grid-3">
+                    <div class="field"><label>Full name</label><input id="suName" required /></div>
+                    <div class="field"><label>Email</label><input type="email" id="suEmail" required /></div>
+                    <div class="field"><label>Phone</label><input id="suPhone" placeholder="03xx-xxxxxxx" required />
+                    </div>
+                    <div class="field"><label>CNIC</label><input id="suCNIC" placeholder="12345-1234567-1" required />
+                    </div>
+                    <div class="field"><label>Password</label><input type="password" id="suPass" minlength="6"
+                            required /></div>
+                    <div class="field"><label>Confirm password</label><input type="password" id="suPass2" minlength="6"
+                            required /></div>
+                    <div style="grid-column:1/-1" class="right mt-8"><button class="btn btn-primary"
+                            type="submit">Create account</button></div>
+                </form>
+                <p class="muted">Your data is kept only in this browser via localStorage for demo purposes.</p>
+            </div>
+        </section>
+
+        <!-- SEARCH -->
+        <section id="view-search" class="hidden">
+            <div class="card">
+                <h2 style="margin:0 0 6px">Search results</h2>
+                <div class="muted" id="searchSummary"></div>
+                <div id="searchResults" class="mt-8"></div>
+            </div>
+        </section>
+
+        <!-- TRAINS LIST / INFO -->
+        <section id="view-trains" class="hidden">
+            <div class="card">
+                <div class="row" style="justify-content:space-between;">
+                    <h2 style="margin:0">Trains & Schedules</h2>
+                    <div class="row">
+                        <select id="filterFrom"></select>
+                        <select id="filterTo"></select>
+                        <button class="btn btn-outline" id="clearFilters">Clear</button>
+                    </div>
+                </div>
+                <div class="mt-8" id="trainsTable"></div>
+            </div>
+        </section>
+
+        <!-- BOOKING FLOW -->
+        <section id="view-book" class="hidden">
+            <div class="card">
+                <div class="stepper">
+                    <div class="chip active" id="step1"><span class="n">1</span> Select Seats</div>
+                    <div class="chip" id="step2"><span class="n">2</span> Passenger & Payment</div>
+                    <div class="chip" id="step3"><span class="n">3</span> Confirmation</div>
+                </div>
+                <div id="bookingPane" class="mt-16"></div>
+            </div>
+        </section>
+
+        <!-- BOOKINGS -->
+        <section id="view-bookings" class="hidden">
+            <div class="card">
+                <div class="row" style="justify-content:space-between;">
+                    <h2 style="margin:0">My Bookings</h2>
+                    <div id="userBadge" class="badge">Guest</div>
+                </div>
+                <div id="bookingsList" class="mt-8"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="foot">
+                <h4>About</h4>
+                <p style="margin-top:0">This is a demo app that mimics core flows of Pakistan Railways e‑ticketing using
+                    only HTML, CSS, and JavaScript. No real payments are processed.</p>
+            </div>
+            <div class="foot">
+                <h4>Contact</h4>
+                <a href="mailto:support@example.com">support@example.com</a>
+                <a href="#" id="contactPhone">+92 300 1234567</a>
+                <a href="#" id="contactHours">Mon–Sat 9am–6pm PKT</a>
+            </div>
+            <div class="foot">
+                <h4>Quick Links</h4>
+                <a href="#" data-nav="home">Home</a>
+                <a href="#" data-nav="trains">Trains</a>
+                <a href="#" data-nav="bookings">My Bookings</a>
+            </div>
+        </div>
+        <div class="container subfoot">
+            <div>© <span id="yearNow"></span> Pakistan Railways (Demo)</div>
+            <div class="muted">Built for learning purposes</div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
